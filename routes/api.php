@@ -37,5 +37,6 @@ Route::prefix('/v1')->group(function()
     Route::controller(QuestionController::class)->middleware('auth:sanctum')->group(function()
     {
         Route::post('/forms/{slug}/questions', 'createQuestion');
+        Route::delete('/forms/{slug}/questions/{id}', 'deleteQuestion');
     });
 });
