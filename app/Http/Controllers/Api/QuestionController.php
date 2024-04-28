@@ -56,7 +56,7 @@ class QuestionController extends Controller
             return response()->json([
                 'message' => 'Invalid field',
                 'errors' => $validate->errors(),
-            ]);
+            ], 402);
         }
         $form = Form::where('slug', $slug)->first();
         if(!$form) {

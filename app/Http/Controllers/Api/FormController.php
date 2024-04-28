@@ -24,7 +24,7 @@ class FormController extends Controller
             return response()->json([
                 'message' => 'Invalid field',
                 'errors' => $validate->errors(),
-            ]);
+            ], 401);
         }
         $form = Form::create([
             'name' => $request->name,
@@ -69,14 +69,14 @@ class FormController extends Controller
                 'message' => 'Form not found'
             ], 404);
         }
-        $user = explode('@', Auth::user()->email);
-        foreach($form->formatted_allowed_domains as $domain) {
-            if(end($user) !== $domain) {
-                return response()->json([
-                    'message' => 'Forbidden access',
-                ]);
-            }
-        }
+        // $user = explode('@', Auth::user()->email);
+        // foreach($form->formatted_allowed_domains as $domain) {
+        //     if(end($user) !== $domain) {
+        //         return response()->json([
+        //             'message' => 'Forbidden access',
+        //         ]);
+        //     }
+        // }
         return response()->json([
             'message'=> 'Get form success',
             'form' => [

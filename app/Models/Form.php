@@ -21,6 +21,11 @@ class Form extends Model
         return $this->hasMany(Question::class);
     }
 
+    public function responses()
+    {
+        return $this->hasMany(Response::class);
+    }
+
     // format question
     public function getFormattedQuestionsAttribute()
     {
@@ -32,7 +37,7 @@ class Form extends Model
                 'form_id' => $question['form_id'],
                 'name' => $question['name'],
                 'choice_type' => $question['choice_type'],
-                'choices' => $question['choices'],
+                'choices' => explode(',', $question['choices']),
                 'is_required' => $question['is_required'],
             ];
         }, $questions);
@@ -51,7 +56,7 @@ class Form extends Model
         $alloweodDomains = $this->allowedDomains->toArray();
         return array_map(function($alloweodDomain)
         {
-            return $alloweodDomain['domain'];
+            return explode(',', $alloweodDomain['domain']);
         }, $alloweodDomains);
     }
 }
